@@ -1,10 +1,10 @@
 variable "resource_group_name" {
   description = "Name of the resource group in which the resources will be created"
-  default     = "myResourceGroup"
+  default     = "rg-dev-infra"
 }
 
 variable "location" {
-  default     = "eastus"
+  default     = "eastus2"
   description = "Location where resources will be created"
 }
 
@@ -12,7 +12,8 @@ variable "tags" {
   description = "Map of the tags to use for the resources that are deployed"
   type        = map(string)
   default = {
-    environment = "codelab"
+    Area = "Infrastructure"
+    Purpose = "BronzeApp"
   }
 }
 
@@ -23,11 +24,10 @@ variable "application_port" {
 
 variable "admin_user" {
   description = "User name to use as the admin account on the VMs that will be part of the VM scale set"
-  default     = "azureuser"
+  default     = "vmssadmin"
 }
 
 variable "admin_password" {
   description = "Default password for admin account"
-  default     = null
-  sensitive   = true
+  default     = azurerm_key_vault_secret.vmsecret.value
 }
